@@ -18,11 +18,13 @@ import butterknife.Bind;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    private static final int REQUEST_OPTOUT = 0;
 
     @Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.btn_login) Button _loginButton;
     @Bind(R.id.link_signup) TextView _signupLink;
+    @Bind(R.id.link_optout) TextView link_optout;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,9 +49,24 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+
+            }
+        });
+
+        link_optout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // Start the Optout activity
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
     }
+
+
 
     public void login() {
         Log.d(TAG, "Login");
@@ -71,6 +88,8 @@ public class LoginActivity extends AppCompatActivity {
         String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
+
+
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -95,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -136,3 +156,4 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 }
+
